@@ -12,7 +12,12 @@ exports['/me'] = {
     const token = req.token;
     try {
       const { data: user } = await getMe(token);
-      return res.render('user', user)
+      return res.status(200).json({
+        status: 'success',
+        code: 200,
+        httpCode: 200,
+        data: user,
+      })
     } catch (err) {
       const code = err.code || 500;
       const httpCode = err.httpCode || 500;

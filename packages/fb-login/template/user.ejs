@@ -3,11 +3,8 @@
 <head></head>
 <body>
   <p>userId: <%= id%></p>
-  <p>name: <%= name%></p>
   <form action="/auth/logout" method="post">
     <button type="submit" >Logout</button>
   </form>
-  <a href="/user/me">me</a>
-  <a href="<%=`/user/${id}`%>">user</a>
 </body>
 </html>
