@@ -17,6 +17,7 @@ exports.authCheck = asyncWrapper(async (req, res, next) => {
     const { user_id } = updatedInfo;
     subHandlers.setAuth(user_id, token, updatedInfo, req);
     req.userId = user_id;
+    req.token = access_token
 
     next();
   } catch (err) {
@@ -29,20 +30,20 @@ exports.authCheck = asyncWrapper(async (req, res, next) => {
   }
 });
 
-exports.permissionCheck = asyncWrapper(async (req, res, next) => {
-  const reqUserId = req.body.userId || req.query.userId || req.params.userId;
-  const userId = req.userId;
+// exports.permissionCheck = asyncWrapper(async (req, res, next) => {
+//   const reqUserId = req.body.userId || req.query.userId || req.params.userId;
+//   const userId = req.userId;
 
-  try {
-    if (userId !== reqUserId) {
-      throw UNAUTHORIZED;
-    }
+//   try {
+//     if (userId !== reqUserId) {
+//       throw UNAUTHORIZED;
+//     }
 
-    req.userId = reqUserId;
+//     req.userId = reqUserId;
 
-    next();
-  } catch (err) {
-    console.log('permissionCheck failed');
-    return res.status(err.httpCode || 500).send(err.message);
-  }
-});
+//     next();
+//   } catch (err) {
+//     console.log('permissionCheck failed');
+//     return res.status(err.httpCode || 500).send(err.message);
+//   }
+// });

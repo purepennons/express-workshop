@@ -47,7 +47,7 @@ exports['/login'] = {
 };
 
 exports['/logout'] = {
-  get: (req, res, next) => {
+  post: (req, res, next) => {
     const { clearSession } = req.app.locals;
     const info = req.session.info;
     const userId = info && info.user_id ? info.user_id : null;

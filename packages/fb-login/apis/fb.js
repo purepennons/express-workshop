@@ -4,7 +4,8 @@ const ENV = require('../constants/env');
 const {
   INVALID_CODE,
   LOGIN_FAILED,
-  INVALID_TOKEN
+  INVALID_TOKEN,
+  UNKNOWN,
 } = require('../constants/error');
 
 exports.getToken = async code => {
@@ -27,8 +28,18 @@ exports.verifyToken = async token => {
     ENV.FB_APP_TOKEN
   }`;
   try {
+    return await axios.get(url);
+  } catch (err) {
+    throw INVALID_TOKEN;
+  }
+};
+
+exports.getMe = async token => {
+  if (!token) throw INVALID_TOKEN;
+  const url = `https://graph.facebook.com/v3.1/me?access_token=${token}`
+  try {
     return await axios.get(url)
   } catch(err) {
-    throw INVALID_TOKEN
+    throw UNKNOWN
   }
 };

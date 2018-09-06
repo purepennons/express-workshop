@@ -1,12 +1,9 @@
 const router = require('express').Router({ mergeParams: true });
 
 const userHandlers = require('../handlers/user');
-const { authCheck, permissionCheck } = require('../middlewares/authCheck');
+const { authCheck } = require('../middlewares/authCheck');
 
-router.get(
-  '/:userId',
-  [authCheck, permissionCheck],
-  userHandlers['/:userId'].get
-);
+router.get('/me', [authCheck], userHandlers['/me'].get);
+router.get('/:userId', [authCheck], userHandlers['/:userId'].get);
 
 module.exports = router;
