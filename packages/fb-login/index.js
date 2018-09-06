@@ -63,4 +63,9 @@ app.use(
 
 app.use('/', routes);
 
+app.use((err, req, res, next) => {
+  console.log('error', err.stack);
+  res.status(500).send('internal server error');
+});
+
 https.createServer(certOpts, app).listen(3000);
